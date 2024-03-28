@@ -3,24 +3,25 @@ const API = 'https://youtube-v31.p.rapidapi.com/search?channelId=UC7QoKU6bj1QbXQ
 const content = null || document.getElementById('content');
 
 const options = {
-    method: 'GET',
-    headers: {
-        'X-RapidAPI-Key': '951ddfa0bcmsh6c1ce0e9b35b763p1f31e0jsn8104930a3f7d',
-        'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com'
-    }
+  method: 'GET',
+  headers: {
+    'X-RapidAPI-Key': '951ddfa0bcmsh6c1ce0e9b35b763p1f31e0jsn8104930a3f7d',
+    'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com'
+  }
 };
 
 async function fetchData(urlApi) {
-    const response = await fetch(urlApi, options);
-    const data = await response.json();
-    return data
+  const response = await fetch(urlApi, options);
+  const data = await response.json();
+  return data
 }
 
 (async () => {
-    try {
-        const videos = await fetchData(API);
-        let view = `
+  try {
+    const videos = await fetchData(API);
+    let view = `
     ${videos.items.map(video => `
+      <a href="https://youtube.com/watch?v=${video.id.videoId}"target="_blank">
       <div class="group relative">
         <div
           class="w-full bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
@@ -33,10 +34,11 @@ async function fetchData(urlApi) {
           </h3>
         </div>
       </div>
+      </a>
     `).slice(0, 4).join('')}
     `;
-        content.innerHTML = view;
-    } catch (error) {
-        console.log(error);
-    }
+    content.innerHTML = view;
+  } catch (error) {
+    console.log(error);
+  }
 })();
